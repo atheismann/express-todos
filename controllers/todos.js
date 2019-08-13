@@ -6,7 +6,23 @@ module.exports = {
   new: newTodo,
   create,
   delete: deleteTodo,
+  edit,
+  update,
 };
+
+function update(req, res){
+  req.body.done = !!req.body.done
+  Todo.update(req.params.id, req.body);
+  res.redirect(`/todos/${req.params.id}`);
+}
+
+function edit(req, res){
+ var todo = Todo.getOne(req.params.id);
+ res.render('todos/edit', {
+   todo, 
+   todoIdx: req.params.id,
+ });
+}
 
 function deleteTodo(req, res){
   Todo.deleteOne(req.params.id);
@@ -18,7 +34,6 @@ function newTodo(req, res){
 };
 
 function create(req, res){
-  console.log(req.body);
   req.body.done = false;
   Todo.create(req.body);
   res.redirect('/todos');
