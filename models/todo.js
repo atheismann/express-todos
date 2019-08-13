@@ -8,6 +8,7 @@ module.exports = {
   getAll,
   getOne,
   create,
+  deleteOne,
 };
 
 function getOne(id) {
@@ -20,4 +21,8 @@ function getAll() {
 
 function create(todo){
   todos.push(todo);
+}
+
+function deleteOne(id){
+  todos.splice(id,1);
 }

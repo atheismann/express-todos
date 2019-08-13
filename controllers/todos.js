@@ -4,8 +4,14 @@ module.exports = {
   index,
   show,
   new: newTodo,
-  create
+  create,
+  delete: deleteTodo,
 };
+
+function deleteTodo(req, res){
+  Todo.deleteOne(req.params.id);
+  res.redirect('/todos');
+}
 
 function newTodo(req, res){
   res.render('todos/new');
